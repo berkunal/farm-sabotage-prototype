@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://g7xoeltvtmr6"]
+[gd_scene load_steps=13 format=3 uid="uid://g7xoeltvtmr6"]
 
 [ext_resource type="PackedScene" uid="uid://chg43aqlcpl6q" path="res://scenes/player.tscn" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://55qmimsyggod" path="res://scenes/crop.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://cwqc1rt8ywc8q" path="res://scripts/drop_zone.gd" id="3_4wyf3"]
 [ext_resource type="Script" uid="uid://l316c8vtv74n" path="res://scripts/score_manager.gd" id="4_k0juu"]
+[ext_resource type="LabelSettings" uid="uid://bip4slgfeqy4f" path="res://resources/score_label.tres" id="5_71j4m"]
+[ext_resource type="Script" uid="uid://cb8631idmsqla" path="res://scripts/hud.gd" id="5_qfnet"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -73,3 +75,25 @@ surface_material_override/0 = SubResource("StandardMaterial3D_k0juu")
 
 [node name="ScoreManager" type="Node" parent="."]
 script = ExtResource("4_k0juu")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_qfnet")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 31.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme_override_constants/separation = 495
+alignment = 1
+
+[node name="Player1Score" type="Label" parent="HUD/HBoxContainer"]
+layout_mode = 2
+text = "Player 1: 0"
+label_settings = ExtResource("5_71j4m")
+
+[node name="Player2Score" type="Label" parent="HUD/HBoxContainer"]
+layout_mode = 2
+text = "Player 2: 0"
+label_settings = ExtResource("5_71j4m")
