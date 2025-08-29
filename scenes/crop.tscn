@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://55qmimsyggod"]
+
+[ext_resource type="Script" uid="uid://d07q47juy8a5p" path="res://scripts/crop.gd" id="1_pl0dt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f3sb7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fj7yv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlwt5"]
+albedo_color = Color(0.335184, 0.668053, 0.370025, 1)
+
+[node name="Crop" type="RigidBody3D"]
+script = ExtResource("1_pl0dt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_f3sb7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_fj7yv")
+surface_material_override/0 = SubResource("StandardMaterial3D_tlwt5")
