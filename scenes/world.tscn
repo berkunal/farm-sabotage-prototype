@@ -85,7 +85,7 @@ anchor_right = 1.0
 offset_top = 31.0
 offset_bottom = 54.0
 grow_horizontal = 2
-theme_override_constants/separation = 495
+theme_override_constants/separation = 225
 alignment = 1
 
 [node name="Player1Score" type="Label" parent="HUD/HBoxContainer"]
@@ -93,7 +93,18 @@ layout_mode = 2
 text = "Player 1: 0"
 label_settings = ExtResource("5_71j4m")
 
+[node name="Timer" type="Label" parent="HUD/HBoxContainer"]
+layout_mode = 2
+text = "120"
+label_settings = ExtResource("5_71j4m")
+
 [node name="Player2Score" type="Label" parent="HUD/HBoxContainer"]
 layout_mode = 2
 text = "Player 2: 0"
 label_settings = ExtResource("5_71j4m")
+
+[node name="CountdownTimer" type="Timer" parent="HUD"]
+autostart = true
+
+[connection signal="crop_delivered" from="DropZone" to="ScoreManager" method="_on_drop_zone_crop_delivered"]
+[connection signal="time_up" from="HUD" to="ScoreManager" method="_on_hud_time_up"]

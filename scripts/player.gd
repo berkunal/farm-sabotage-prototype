@@ -6,6 +6,9 @@ extends CharacterBody3D
 
 var held_item: Node = null
 
+func _ready() -> void:
+	add_to_group("players")
+
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
 	handle_interaction()
