@@ -2,10 +2,12 @@ extends CharacterBody3D
 
 @export var speed := 5.0
 @export var player_id := 1
-@onready var hold_point: Area3D = $HoldPoint
 @export var throw_force := 20.0
 @export var launch_force_multiplier = 5.0
 @export var spin_force = 10.0
+
+@onready var hold_point: Area3D = $HoldPoint
+@onready var camera = get_viewport().get_camera_3d()
 
 var held_item: Node = null
 var stunned: bool = false
@@ -126,6 +128,8 @@ func get_stunned(impact_force):
 		randf_range(-spin_force, spin_force),
 		randf_range(-spin_force, spin_force)
 	)
+	
+	screen_shake()
 
 func recover_from_stun():
 	stunned = false
@@ -158,3 +162,21 @@ func handle_stun_physics(delta):
 	
 	# Move the character
 	move_and_slide()
+
+func screen_shake():
+	if not camera:
+		return
+
+	var original_pos = camera.position
+	var tween = create_tween()
+
+	# Quick shake effect
+	for i in 10:
+		var shake_offset = Vector3(
+			randf_range(-0.1, 0.1),
+			randf_range(-0.1, 0.1),
+			randf_range(-0.1, 0.1)
+		)
+		tween.tween_property(camera, "position", original_pos + shake_offset, 0.03)
+
+	tween.tween_property(camera, "position", original_pos, 0.1)

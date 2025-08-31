@@ -117,7 +117,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="Rock" parent="." instance=ExtResource("8_4mrxx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18096, 0.375001, 0.168231)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18096, 0.749055, 0.168231)
 
 [connection signal="crop_delivered" from="DropZone" to="ScoreManager" method="_on_drop_zone_crop_delivered"]
 [connection signal="time_up" from="HUD" to="ScoreManager" method="_on_hud_time_up"]

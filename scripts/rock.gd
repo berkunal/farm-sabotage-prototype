@@ -2,6 +2,7 @@ extends RigidBody3D
 
 var is_held := false
 var holder: Node3D = null
+@export var min_stun_velocity = 5.0
 
 signal hit_player(player)
 
@@ -44,6 +45,10 @@ func throw_item(force: Vector3):
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("players") and body.has_method("get_stunned"):
+		var current_speed = linear_velocity.length()
+
+		if current_speed < min_stun_velocity:
+			return
 		var impact_force = linear_velocity * mass
 		body.get_stunned(impact_force);
 		queue_free()
