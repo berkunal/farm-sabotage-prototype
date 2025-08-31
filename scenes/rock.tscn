@@ -20,3 +20,5 @@ shape = SubResource("SphereShape3D_t8sxr")
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 mesh = SubResource("SphereMesh_1di36")
 surface_material_override/0 = SubResource("StandardMaterial3D_mek2u")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

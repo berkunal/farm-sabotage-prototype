@@ -8,6 +8,7 @@ extends CharacterBody3D
 
 @onready var hold_point: Area3D = $HoldPoint
 @onready var camera = get_viewport().get_camera_3d()
+@onready var sfx = $AudioStreamPlayer3D
 
 var held_item: Node = null
 var stunned: bool = false
@@ -17,6 +18,7 @@ var spin_velocity = Vector3.ZERO
 var original_gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
+	sfx.stream = load("res://audio/thud-impact-sound-sfx-379990.mp3")
 	add_to_group("players")
 
 func _physics_process(delta: float) -> void:
@@ -114,10 +116,13 @@ func get_stunned(impact_force):
 	if stunned:
 		return
 
+
 	if held_item:
 		drop_item()  # drop crop if holding
 	stunned = true
 	stun_timer = 2.0 # stunned for 2 seconds
+
+	sfx.play() # Play hit sound
 
 	var launch_direction = Vector3.UP * 0.7 + Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized() * 0.3
 	launch_velocity = launch_direction * impact_force.length() * launch_force_multiplier

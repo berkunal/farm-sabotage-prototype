@@ -46,6 +46,7 @@ size = Vector3(45.397, 1, 32.203)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.215264, 0.976556, 0, -0.976556, 0.215264, 0, 15.0307, 5.48931)
+current = true
 
 [node name="Player" parent="." instance=ExtResource("1_rwgxs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.33418, 0, 0)
@@ -117,7 +118,10 @@ wait_time = 5.0
 autostart = true
 
 [node name="Rock" parent="." instance=ExtResource("8_4mrxx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18096, 0.749055, 0.168231)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18096, 0.749055, -1.22845)
+
+[node name="Rock2" parent="." instance=ExtResource("8_4mrxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43851, 0.749055, 1.50229)
 
 [connection signal="crop_delivered" from="DropZone" to="ScoreManager" method="_on_drop_zone_crop_delivered"]
 [connection signal="time_up" from="HUD" to="ScoreManager" method="_on_hud_time_up"]

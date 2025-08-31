@@ -3,10 +3,12 @@ extends RigidBody3D
 var is_held := false
 var holder: Node3D = null
 @export var min_stun_velocity = 5.0
+@onready var sfx = $AudioStreamPlayer3D
 
 signal hit_player(player)
 
 func _ready() -> void:
+	sfx.stream = load("res://audio/simple-whoosh-382724.mp3")
 	add_to_group("rocks")
 	
 	contact_monitor = true
@@ -42,6 +44,7 @@ func throw_item(force: Vector3):
 	collision_layer = 1
 	collision_mask = 1
 	apply_impulse(force, Vector3.ZERO)
+	sfx.play()
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("players") and body.has_method("get_stunned"):
@@ -51,4 +54,5 @@ func _on_body_entered(body: Node) -> void:
 			return
 		var impact_force = linear_velocity * mass
 		body.get_stunned(impact_force);
+		await sfx.finished
 		queue_free()
