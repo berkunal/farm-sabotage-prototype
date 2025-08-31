@@ -13,6 +13,8 @@ albedo_color = Color(0.972447, 0.548907, 1.15514e-06, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_3vyb7")
+throw_force = 40.0
+launch_force_multiplier = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

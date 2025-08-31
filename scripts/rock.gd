@@ -3,8 +3,14 @@ extends RigidBody3D
 var is_held := false
 var holder: Node3D = null
 
+signal hit_player(player)
+
 func _ready() -> void:
 	add_to_group("rocks")
+	
+	contact_monitor = true
+	max_contacts_reported = 1
+	body_entered.connect(_on_body_entered)
 
 func _physics_process(_delta: float) -> void:
 	if is_held and holder:
@@ -35,3 +41,9 @@ func throw_item(force: Vector3):
 	collision_layer = 1
 	collision_mask = 1
 	apply_impulse(force, Vector3.ZERO)
+
+func _on_body_entered(body: Node) -> void:
+	if body.is_in_group("players") and body.has_method("get_stunned"):
+		var impact_force = linear_velocity * mass
+		body.get_stunned(impact_force);
+		queue_free()

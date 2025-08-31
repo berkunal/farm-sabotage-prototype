@@ -55,7 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.137, 0, 0)
 player_id = 2
 
 [node name="Crop" parent="." groups=["crops"] instance=ExtResource("2_4wyf3")]
-transform = Transform3D(0.885531, -0.464579, 0, 0.437821, 0.834527, -0.334481, 0.155393, 0.296194, 0.942402, 0, 1.41864, 0)
+transform = Transform3D(0.885531, -0.464579, 0, 0.437821, 0.834527, -0.334481, 0.155393, 0.296194, 0.942402, 0, 1.41864, 3.7969)
 
 [node name="Crop2" parent="." groups=["crops"] instance=ExtResource("2_4wyf3")]
 transform = Transform3D(0.988218, 0.149444, -0.0330489, -0.153055, 0.964905, -0.213384, 0, 0.215928, 0.976409, -5.6487, 1.49735, -3.06561)
@@ -115,6 +115,9 @@ rock_scene = ExtResource("8_4mrxx")
 [node name="RockTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="Rock" parent="." instance=ExtResource("8_4mrxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18096, 0.375001, 0.168231)
 
 [connection signal="crop_delivered" from="DropZone" to="ScoreManager" method="_on_drop_zone_crop_delivered"]
 [connection signal="time_up" from="HUD" to="ScoreManager" method="_on_hud_time_up"]

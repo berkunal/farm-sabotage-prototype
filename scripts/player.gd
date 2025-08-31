@@ -4,13 +4,24 @@ extends CharacterBody3D
 @export var player_id := 1
 @onready var hold_point: Area3D = $HoldPoint
 @export var throw_force := 20.0
+@export var launch_force_multiplier = 5.0
+@export var spin_force = 10.0
 
 var held_item: Node = null
+var stunned: bool = false
+var stun_timer: float = 0.0
+var launch_velocity = Vector3.ZERO
+var spin_velocity = Vector3.ZERO
+var original_gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
 	add_to_group("players")
 
 func _physics_process(delta: float) -> void:
+	if stunned:
+		handle_stun_physics(delta)
+		return
+
 	handle_movement(delta)
 	handle_interaction()
 	handle_throw()
@@ -31,6 +42,9 @@ func handle_movement(delta: float) -> void:
 	var velocity_vector = Vector3(input_vector.x, 0, input_vector.z) * speed
 	velocity.x = velocity_vector.x
 	velocity.z = velocity_vector.z
+	
+	if not is_on_floor():
+		velocity.y -= original_gravity * delta
 
 	move_and_slide()
 	
@@ -84,7 +98,7 @@ func pick_up_item() -> void:
 
 func drop_item() -> void:
 	if held_item:
-		held_item.drop(get_tree().current_scene, hold_point.global_position)
+		held_item.drop(hold_point.global_position)
 		held_item = null
 
 
@@ -93,3 +107,54 @@ func throw_item() -> void:
 		var forward = transform.basis.x.normalized()
 		held_item.throw_item(forward * throw_force)
 		held_item = null
+
+func get_stunned(impact_force):
+	if stunned:
+		return
+
+	if held_item:
+		drop_item()  # drop crop if holding
+	stunned = true
+	stun_timer = 2.0 # stunned for 2 seconds
+
+	var launch_direction = Vector3.UP * 0.7 + Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized() * 0.3
+	launch_velocity = launch_direction * impact_force.length() * launch_force_multiplier
+	
+	# 3. Add random spin
+	spin_velocity = Vector3(
+		randf_range(-spin_force, spin_force),
+		randf_range(-spin_force, spin_force),
+		randf_range(-spin_force, spin_force)
+	)
+
+func recover_from_stun():
+	stunned = false
+	var tween = create_tween()
+	tween.tween_property(self, "rotation", Vector3.ZERO, 0.5)
+	
+	# Reset velocities
+	launch_velocity = Vector3.ZERO
+	spin_velocity = Vector3.ZERO
+	velocity = Vector3.ZERO
+
+func handle_stun_physics(delta):
+	stun_timer -= delta
+	
+	if stun_timer <= 0:
+		# Stun ended - reset to normal
+		recover_from_stun()
+		return
+	
+	# Apply launch velocity with gravity
+	velocity = launch_velocity
+	launch_velocity.y -= original_gravity * delta  # Apply gravity to launch velocity
+	
+	# Apply spinning rotation
+	rotation += spin_velocity * delta
+	
+	# Dampen the launch velocity over time (air resistance)
+	launch_velocity *= 0.98
+	spin_velocity *= 0.95  # Dampen spin too
+	
+	# Move the character
+	move_and_slide()
