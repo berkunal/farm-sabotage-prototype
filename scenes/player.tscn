@@ -24,7 +24,7 @@ mesh = SubResource("CapsuleMesh_dwbse")
 surface_material_override/0 = SubResource("StandardMaterial3D_pkg7o")
 
 [node name="HoldPoint" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.59264, 1.20654, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19271, 1.20654, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HoldPoint"]
 shape = SubResource("SphereShape3D_3vyb7")

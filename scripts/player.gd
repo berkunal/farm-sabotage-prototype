@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var speed := 5.0
 @export var player_id := 1
 @onready var hold_point: Area3D = $HoldPoint
+@export var throw_force := 20.0
 
 var held_item: Node = null
 
@@ -12,6 +13,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
 	handle_interaction()
+	handle_throw()
 
 func handle_movement(delta: float) -> void:
 	var input_vector := Vector3.ZERO
@@ -37,6 +39,7 @@ func handle_movement(delta: float) -> void:
 		var target_angle = atan2(-input_vector.z, input_vector.x)
 		rotation.y = lerp_angle(rotation.y, target_angle, delta * 10.0)
 
+
 func handle_interaction() -> void:
 	var interact_pressed := false
 	if player_id == 1 and Input.is_action_just_pressed("p1_interact"):
@@ -50,23 +53,43 @@ func handle_interaction() -> void:
 		else:
 			pick_up_item()
 
+
+func handle_throw() -> void:
+	var throw_pressed := false
+	if player_id == 1 and Input.is_action_just_pressed("p1_throw"):
+		throw_pressed = true
+	elif player_id == 2 and Input.is_action_just_pressed("p2_throw"):
+		throw_pressed = true
+
+	if throw_pressed and held_item and held_item.is_in_group("rocks"):
+		throw_item()
+
+
 func pick_up_item() -> void:
-	var nearest_crop: RigidBody3D = null
+	var nearest_item: RigidBody3D = null
 	var min_dist := 1.5
 
-	for crop in get_tree().get_nodes_in_group("crops"):
-		if not crop.is_held:
-			var dist = crop.global_position.distance_to(global_position)
-			if dist <= min_dist:
-				nearest_crop = crop
-				min_dist = dist
+	for item in get_tree().get_nodes_in_group("crops") + get_tree().get_nodes_in_group("rocks"):
+		if item.has_method("is_held") and item.is_held:
+			continue
+		var dist = item.global_position.distance_to(global_position)
+		if dist <= min_dist:
+			nearest_item = item
+			min_dist = dist
 
-	if nearest_crop:
-		held_item = nearest_crop
-		nearest_crop.pick_up(self)
+	if nearest_item:
+		held_item = nearest_item
+		nearest_item.pick_up(self)
 
-# -----------------------------
+
 func drop_item() -> void:
 	if held_item:
 		held_item.drop(get_tree().current_scene, hold_point.global_position)
+		held_item = null
+
+
+func throw_item() -> void:
+	if held_item and held_item.has_method("throw_item"):
+		var forward = transform.basis.x.normalized()
+		held_item.throw_item(forward * throw_force)
 		held_item = null

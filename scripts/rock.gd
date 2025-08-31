@@ -2,7 +2,9 @@ extends RigidBody3D
 
 var is_held := false
 var holder: Node3D = null
-var last_owner = null
+
+func _ready() -> void:
+	add_to_group("rocks")
 
 func _physics_process(_delta: float) -> void:
 	if is_held and holder:
@@ -14,26 +16,22 @@ func _physics_process(_delta: float) -> void:
 func pick_up(player: Node3D) -> void:
 	is_held = true
 	holder = player
-	last_owner = player
 	freeze = true
 	collision_layer = 0
 	collision_mask = 0
 
-	## Move under player scene tree
-	#if get_parent():
-		#get_parent().remove_child(self)
-	#player.add_child(self)
-
 func drop(drop_position: Vector3) -> void:
-	last_owner = holder
 	is_held = false
 	holder = null
 	freeze = false
 	collision_layer = 1
 	collision_mask = 1
 
-	#if get_parent():
-		#get_parent().remove_child(self)
-	#world_parent.add_child(self)
-
 	global_transform.origin = drop_position
+
+func throw_item(force: Vector3):
+	is_held = false
+	freeze = false
+	collision_layer = 1
+	collision_mask = 1
+	apply_impulse(force, Vector3.ZERO)

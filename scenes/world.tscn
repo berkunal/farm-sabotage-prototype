@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://g7xoeltvtmr6"]
+[gd_scene load_steps=15 format=3 uid="uid://g7xoeltvtmr6"]
 
 [ext_resource type="PackedScene" uid="uid://chg43aqlcpl6q" path="res://scenes/player.tscn" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://55qmimsyggod" path="res://scenes/crop.tscn" id="2_4wyf3"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://l316c8vtv74n" path="res://scripts/score_manager.gd" id="4_k0juu"]
 [ext_resource type="LabelSettings" uid="uid://bip4slgfeqy4f" path="res://resources/score_label.tres" id="5_71j4m"]
 [ext_resource type="Script" uid="uid://cb8631idmsqla" path="res://scripts/hud.gd" id="5_qfnet"]
+[ext_resource type="Script" uid="uid://ck1lwp0q61jmn" path="res://scripts/rock_spawner.gd" id="7_i7141"]
+[ext_resource type="PackedScene" uid="uid://b7xkansct4b1m" path="res://scenes/rock.tscn" id="8_4mrxx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -106,5 +108,14 @@ label_settings = ExtResource("5_71j4m")
 [node name="CountdownTimer" type="Timer" parent="HUD"]
 autostart = true
 
+[node name="RockSpawner" type="Node3D" parent="."]
+script = ExtResource("7_i7141")
+rock_scene = ExtResource("8_4mrxx")
+
+[node name="RockTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="crop_delivered" from="DropZone" to="ScoreManager" method="_on_drop_zone_crop_delivered"]
 [connection signal="time_up" from="HUD" to="ScoreManager" method="_on_hud_time_up"]
+[connection signal="timeout" from="RockTimer" to="RockSpawner" method="_on_rock_timer_timeout"]
