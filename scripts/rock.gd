@@ -5,7 +5,6 @@ var holder: Node3D = null
 @export var min_stun_velocity = 5.0
 @onready var sfx = $AudioStreamPlayer3D
 
-signal hit_player(player)
 
 func _ready() -> void:
 	sfx.stream = load("res://audio/simple-whoosh-382724.mp3")

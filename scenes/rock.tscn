@@ -22,3 +22,4 @@ mesh = SubResource("SphereMesh_1di36")
 surface_material_override/0 = SubResource("StandardMaterial3D_mek2u")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+visible = false

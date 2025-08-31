@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://g7xoeltvtmr6"]
+[gd_scene load_steps=16 format=3 uid="uid://g7xoeltvtmr6"]
 
 [ext_resource type="PackedScene" uid="uid://chg43aqlcpl6q" path="res://scenes/player.tscn" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://55qmimsyggod" path="res://scenes/crop.tscn" id="2_4wyf3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cb8631idmsqla" path="res://scripts/hud.gd" id="5_qfnet"]
 [ext_resource type="Script" uid="uid://ck1lwp0q61jmn" path="res://scripts/rock_spawner.gd" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://b7xkansct4b1m" path="res://scenes/rock.tscn" id="8_4mrxx"]
+[ext_resource type="MeshLibrary" uid="uid://dsjrydr5inikm" path="res://resources/tiles.tres" id="9_7r4gi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -122,6 +123,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18096, 0.749055, -1.22845)
 
 [node name="Rock2" parent="." instance=ExtResource("8_4mrxx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43851, 0.749055, 1.50229)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("9_7r4gi")
+cell_size = Vector3(1, 2, 1)
+metadata/_editor_floor_ = Vector3(0, -1, 0)
 
 [connection signal="crop_delivered" from="DropZone" to="ScoreManager" method="_on_drop_zone_crop_delivered"]
 [connection signal="time_up" from="HUD" to="ScoreManager" method="_on_hud_time_up"]
