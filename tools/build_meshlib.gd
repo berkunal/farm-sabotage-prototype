@@ -157,7 +157,8 @@ func create_collision_shape(mesh: Mesh, name: String) -> Shape3D:
 
 func should_use_box_collision(name: String) -> bool:
 	# Most Kenney platform pieces are simple boxes
-	var box_keywords = ["tile", "block", "platform", "straight", "corner"]
+	# var box_keywords = ["tile", "block", "platform", "straight", "corner"]
+	var box_keywords = []
 	for keyword in box_keywords:
 		if keyword in name:
 			return true
