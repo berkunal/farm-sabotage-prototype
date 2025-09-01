@@ -1,25 +1,27 @@
-[gd_scene load_steps=25 format=3 uid="uid://g7xoeltvtmr6"]
+[gd_scene load_steps=28 format=3 uid="uid://g7xoeltvtmr6"]
 
 [ext_resource type="PackedScene" uid="uid://chg43aqlcpl6q" path="res://scenes/player.tscn" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://55qmimsyggod" path="res://scenes/crop.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://cwqc1rt8ywc8q" path="res://scripts/drop_zone.gd" id="3_4wyf3"]
 [ext_resource type="Script" uid="uid://l316c8vtv74n" path="res://scripts/score_manager.gd" id="4_k0juu"]
-[ext_resource type="PackedScene" uid="uid://dnjbv7mxd01um" path="res://models/block-moving.glb" id="4_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://dnjbv7mxd01um" path="res://models/platform kit/block-moving.glb" id="4_w7kh3"]
 [ext_resource type="LabelSettings" uid="uid://bip4slgfeqy4f" path="res://resources/score_label.tres" id="5_71j4m"]
 [ext_resource type="Script" uid="uid://cb8631idmsqla" path="res://scripts/hud.gd" id="5_qfnet"]
 [ext_resource type="Script" uid="uid://ck1lwp0q61jmn" path="res://scripts/rock_spawner.gd" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://b7xkansct4b1m" path="res://scenes/rock.tscn" id="8_4mrxx"]
 [ext_resource type="MeshLibrary" uid="uid://h2sy2272q1o1" path="res://resources/tiles.tres" id="9_7r4gi"]
-[ext_resource type="PackedScene" uid="uid://ckgf78uish5aw" path="res://models/tree.glb" id="11_e3hyu"]
-[ext_resource type="PackedScene" uid="uid://co7tuin5dbv0u" path="res://models/tree-pine.glb" id="12_jhx03"]
-[ext_resource type="PackedScene" uid="uid://c1upiyqtl14uj" path="res://models/tree-pine-small.glb" id="13_o8fc1"]
-[ext_resource type="PackedScene" uid="uid://nd0p1a5wt8yp" path="res://models/plant.glb" id="14_dss4m"]
-[ext_resource type="PackedScene" uid="uid://dqo66cj2cm4cj" path="res://models/mushrooms.glb" id="15_7t5mc"]
-[ext_resource type="PackedScene" uid="uid://dt02s57af1n0k" path="res://models/grass.glb" id="16_lakw3"]
-[ext_resource type="PackedScene" uid="uid://bjbly5dj1ni7j" path="res://models/rocks.glb" id="17_7t5mc"]
-[ext_resource type="PackedScene" uid="uid://dkfhm15flgfv6" path="res://models/flowers-tall.glb" id="18_2lf6f"]
-[ext_resource type="PackedScene" uid="uid://crokhkuv3bekx" path="res://models/flowers.glb" id="19_7iits"]
-[ext_resource type="PackedScene" uid="uid://3bnn71spxp6k" path="res://models/stones.glb" id="20_oo54l"]
+[ext_resource type="PackedScene" uid="uid://ckgf78uish5aw" path="res://models/platform kit/tree.glb" id="11_e3hyu"]
+[ext_resource type="PackedScene" uid="uid://co7tuin5dbv0u" path="res://models/platform kit/tree-pine.glb" id="12_jhx03"]
+[ext_resource type="PackedScene" uid="uid://c1upiyqtl14uj" path="res://models/platform kit/tree-pine-small.glb" id="13_o8fc1"]
+[ext_resource type="PackedScene" uid="uid://nd0p1a5wt8yp" path="res://models/platform kit/plant.glb" id="14_dss4m"]
+[ext_resource type="PackedScene" uid="uid://dqo66cj2cm4cj" path="res://models/platform kit/mushrooms.glb" id="15_7t5mc"]
+[ext_resource type="PackedScene" uid="uid://dt02s57af1n0k" path="res://models/platform kit/grass.glb" id="16_lakw3"]
+[ext_resource type="PackedScene" uid="uid://bjbly5dj1ni7j" path="res://models/platform kit/rocks.glb" id="17_7t5mc"]
+[ext_resource type="PackedScene" uid="uid://dkfhm15flgfv6" path="res://models/platform kit/flowers-tall.glb" id="18_2lf6f"]
+[ext_resource type="PackedScene" uid="uid://crokhkuv3bekx" path="res://models/platform kit/flowers.glb" id="19_7iits"]
+[ext_resource type="PackedScene" uid="uid://3bnn71spxp6k" path="res://models/platform kit/stones.glb" id="20_oo54l"]
+[ext_resource type="PackedScene" uid="uid://ba2odofm5u7ew" path="res://models/car kit/delivery.glb" id="21_7iits"]
+[ext_resource type="PackedScene" uid="uid://hm8a3iiickyq" path="res://models/car kit/cone.glb" id="22_oo54l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -36,6 +38,9 @@ glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rwgxs"]
 size = Vector3(4.1228, 0.208984, 3.78418)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oo54l"]
+size = Vector3(1, 2.17664, 4.04395)
 
 [node name="World" type="Node3D"]
 
@@ -231,6 +236,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372049, -0.124999, 1.91339
 
 [node name="rocks3" parent="Environment" instance=ExtResource("17_7t5mc")]
 transform = Transform3D(1.151, 0, 0.236267, 0, 1.175, 0, -0.236267, 0, 1.151, 11.4147, -0.125001, -5.18424)
+
+[node name="delivery" parent="Environment" instance=ExtResource("21_7iits")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 5.64946, -0.125001, -7.97516)
+
+[node name="cone2" parent="Environment" instance=ExtResource("22_oo54l")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.61847, -0.124999, -8.9235)
+
+[node name="cone3" parent="Environment" instance=ExtResource("22_oo54l")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.0231543, -0.124999, -10.9937)
+
+[node name="InvisibleWall" type="StaticBody3D" parent="Environment"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/InvisibleWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5171, 0.588318, -9.02124)
+shape = SubResource("BoxShape3D_oo54l")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Environment/InvisibleWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54077, 0, -9.02124)
+shape = SubResource("BoxShape3D_oo54l")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Environment/InvisibleWall"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00643778, 0, -10.864)
+shape = SubResource("BoxShape3D_oo54l")
 
 [connection signal="crop_delivered" from="DropZone" to="ScoreManager" method="_on_drop_zone_crop_delivered"]
 [connection signal="time_up" from="HUD" to="ScoreManager" method="_on_hud_time_up"]

@@ -7,7 +7,7 @@ signal time_up
 @onready var timer_label: Label = $HBoxContainer/Timer
 @onready var countdown_timer: Timer = $CountdownTimer
 
-var remaining_time = 30
+var remaining_time = 90 
 
 func _ready() -> void:
 	add_to_group("hud")
