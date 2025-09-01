@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cb8631idmsqla" path="res://scripts/hud.gd" id="5_qfnet"]
 [ext_resource type="Script" uid="uid://ck1lwp0q61jmn" path="res://scripts/rock_spawner.gd" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://b7xkansct4b1m" path="res://scenes/rock.tscn" id="8_4mrxx"]
-[ext_resource type="MeshLibrary" uid="uid://dsjrydr5inikm" path="res://resources/tiles.tres" id="9_7r4gi"]
+[ext_resource type="MeshLibrary" uid="uid://mpt2jtkk6y3" path="res://resources/tiles.tres" id="9_7r4gi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -126,8 +126,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43851, 0.749055, 1.50229)
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("9_7r4gi")
-cell_size = Vector3(1, 2, 1)
-metadata/_editor_floor_ = Vector3(0, -1, 0)
+cell_size = Vector3(1, 0.25, 1)
+data = {
+"cells": PackedInt32Array(-196618, 4, 17, -196617, 4, 17, -196616, 4, 17, -196616, 5, 17, -196615, 5, 17, -196614, 5, 17, -196614, 6, 17, -196613, 6, 17, -196612, 7, 17, -196611, 7, 17, -196611, 8, 17, -196610, 8, 17, -196610, 9, 17, -196610, 10, 17, -196610, 11, 17, -196610, 12, 17, -196610, 13, 17, -196611, 13, 17, -196612, 12, 17, -196613, 11, 17, -196614, 10, 17, -196615, 9, 17, -196615, 8, 17, -196616, 8, 17, -196616, 7, 17, -196617, 6, 17, -196617, 5, 17, -196618, 5, 17, -196619, 4, 17, -196616, 6, 17, -196615, 6, 17, -196614, 7, 17, -196613, 7, 17, -196613, 8, 17, -196612, 8, 17, -196612, 9, 17, -196612, 10, 17, -196611, 10, 17, -196611, 11, 17, -196612, 11, 17, -196613, 10, 17, -196613, 9, 17, -196614, 8, 17, -196615, 7, 17, -196619, 3, 17, -196620, 3, 17, -196620, 4, 17, -196619, 5, 17, -196619, 6, 17, -196618, 6, 17, -196618, 7, 17, -196617, 8, 17, -196617, 9, 17, -196616, 9, 17, -196615, 10, 17, -196614, 11, 17, -196614, 12, 17, -196613, 12, 17, -196612, 13, 17)
+}
+metadata/_editor_floor_ = Vector3(0, -4, 0)
 
 [connection signal="crop_delivered" from="DropZone" to="ScoreManager" method="_on_drop_zone_crop_delivered"]
 [connection signal="time_up" from="HUD" to="ScoreManager" method="_on_hud_time_up"]
